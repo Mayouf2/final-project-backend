@@ -11,14 +11,16 @@ const signUpRoute = require("./routers/route/signUpRoute")
 const loginRoute = require("./routers/route/loginRoute")
 const userRoute = require("./routers/route/userRoute")
 const bookRoute = require("./routers/route/bookRoute")
+const commentsRout =require("./routers/route/commentsRoute")
 const {authorization} =require ("./routers/middleware/authorization")
 
 // app.use(signUpRoute , authorization)
 // app.use(loginRoute , authorization)
-// app.use(userRoute , authorization)
+app.use(userRoute )
 app.use(bookRoute)
 app.use(signUpRoute);
 app.use(loginRoute);
+// app.use(commentsRout);
 ////////////////////////////////////////////
 
 

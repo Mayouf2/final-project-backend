@@ -2,18 +2,6 @@ const bookModel = require("../../DB/models/bookModel")
 
 
 
-// const bookInfo = async (req,res)=>{
-//     // const token = req.headers.authorization.split(" ")[1]
-//     // res.send(token)
-//     try {
-//       // const valid = jwt.verify(token , "ABC")
-//       const userId = req.valid.userId
-//      const bookInfo = await bookModel.findOne({_id:userId})
-//       res.status(200).json(bookInfo)
-//     } catch (error) {
-//       res.send(error);
-//     }
-//   }
 
 const bookInfo = async  (req, res) => {
   const id = req.params.id
@@ -27,23 +15,23 @@ const bookInfo = async  (req, res) => {
     });
 }
 
-const oneBook = (req, res) => {
-  let _id = req.params.id
+const oneBook = async (req, res) => {
+  let id = req.params.id
+ 
+try {
+  const onebook = await
   bookModel
-  .find()
-  .then((books)=>{
-    res.status(200).json(books[_id-1]);
-
-  })
-  .catch((err) => {
-    res.send(err);
-  });
+  .findById({_id:id})
+  res.status(200).json(onebook)
+} catch (error) {
+  res.send(error)
+}
 }
 
   const addBook = async (req, res) => {
-    const { name ,auther, img , price , like} = req.body;
+    const { name ,auther, img ,description, price , like} = req.body;
     res.send({ name , img , price , like})
-    const newBook = new bookModel({ name ,auther, img , price ,like});
+    const newBook = new bookModel({ name ,auther, img ,description, price ,like});
   
     try {
       const response = await newBook.save();
@@ -52,6 +40,46 @@ const oneBook = (req, res) => {
       res.send( error , "err");
     }
   }
+  /////////////////////////////////////
+  const addComment = (req, res) => {
+    const { comment } = req.body;
+    const id = req.params.id;
+    const user = req.token.userId;
+    const userName=req.token.userName
+    bookModel
+      .findOneAndUpdate({ _id: id }, { $push: { comment: {comment, userName} } },{
+        new: true
+      })
+      .populate("user")
+      .then((result) => {
+        // console.log(result,"resulttt")
+        res.send(result);
+      }).catch(err=>{
+        res.send(err)
+      });
+  };
+  const deleteComment = (req, res) => {
+    const { comment } = req.body;
+    const id = req.params.id;
+    const user = req.token.userId;
+    const userName=req.token.userName
+    bookModel
+      .findOneAndUpdate({ _id: id }, { $pull: { comment: {comment, userName} } },{
+        new: true
+      })
+      .populate("user")
+      .then((result) => {
+        // console.log(result,"resulttt")
+        res.send(result);
+      }).catch(err=>{
+        res.send(err)
+      });
+  };
+
+  
+  
+  
+  
 
   ////////////////////////////////////////
   const Likes = []
@@ -94,4 +122,4 @@ const delLike = async (req , res) => {
   res.status(200);
   res.json(Likes);
 }
-  module.exports = { bookInfo , addBook ,oneBook ,giveLike , delLike}
+  module.exports = { bookInfo , addBook ,oneBook ,giveLike , delLike , addComment , deleteComment}
