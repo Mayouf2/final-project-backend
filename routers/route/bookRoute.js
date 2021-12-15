@@ -2,7 +2,7 @@ const express = require("express")
 const bookRoute = express.Router();
 const {authentication} = require("../middleware/authorization")
 
-const {bookInfo , addBook ,oneBook ,giveLike , delLike , addComment , deleteComment} = require("../controler/book")
+const {bookInfo , addBook ,oneBook ,giveLike , delLike , addComment , deleteComment } = require("../controler/book")
 
 
 bookRoute.get("/books"  , bookInfo)
@@ -13,5 +13,7 @@ bookRoute.get("/book/:id" , oneBook)
 
 bookRoute.post("/comment/:id" ,authentication,addComment)
 bookRoute.put("/comment/:id" ,authentication, deleteComment)
+
+
 
 module.exports = bookRoute

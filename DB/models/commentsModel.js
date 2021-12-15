@@ -3,7 +3,7 @@
 
 // const comments = new mongoose.Schema({
   
-//     comment:{type:Array},
+//     comments:{type:String},
 //     user:{type: mongoose.Schema.Types.ObjectId, ref:"userModel"}
 // });
 

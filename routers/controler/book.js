@@ -52,13 +52,14 @@ try {
       })
       .populate("user")
       .then((result) => {
-        // console.log(result,"resulttt")
+        // console.log(result,"result")
         res.send(result);
       }).catch(err=>{
         res.send(err)
       });
   };
   const deleteComment = (req, res) => {
+    if(req.params.id == req.params.id || req.body.admin == true){
     const { comment } = req.body;
     const id = req.params.id;
     const user = req.token.userId;
@@ -69,12 +70,12 @@ try {
       })
       .populate("user")
       .then((result) => {
-        // console.log(result,"resulttt")
         res.send(result);
       }).catch(err=>{
         res.send(err)
       });
   };
+}
 
   
   
@@ -82,25 +83,20 @@ try {
   
 
   ////////////////////////////////////////
-  const Likes = []
-const giveLike = async (req , res) => {
-  let id = req.params.id
-  let len = Likes.filter((element , i) => {
-    return element.id == id
-  }).length
-
-  if (len == 0){
-    Likes.push(books[id-1])
-    books[id-1].like = "red"
-    res.json(books); 
-  }else{
-    books[id-1].like = "black"
-    res.json("-1"); 
-  }
-  res.status(200);
-  res.json("")
-  
-}
+// const giveLike  = async (req, res) => {
+//   const id = req.params.id;
+//   const user = req.token.userId;
+//   try {
+//     const newLike = await bookModel.findOneAndUpdate(
+//       { _id: user },
+//       { $push: { Like: id } },
+//       { new: true }
+//     )
+//     res.status(201).json(newLike);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// }
 
 // app.get("/like", (req, res) => {
 //   res.status(200);
@@ -108,18 +104,9 @@ const giveLike = async (req , res) => {
 // });
 
 //delete Like
-const delLike = async (req , res) => {
-  const id = req.params.id;
- 
-  Likes.forEach((element , i) => {
-    if (element.id == Number(id)) {
-      Likes.splice(i,1)
-      books[Number(id-1)].like = "black"
-    }
-   
-  });
-  
-  res.status(200);
-  res.json(Likes);
-}
-  module.exports = { bookInfo , addBook ,oneBook ,giveLike , delLike , addComment , deleteComment}
+
+
+//////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+  module.exports = { bookInfo , addBook ,oneBook   , addComment , deleteComment }

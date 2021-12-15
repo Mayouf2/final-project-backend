@@ -13,7 +13,6 @@ const login = async (req, res) => {
         const payload = { userId: user._id, userName: user.name };
         const token = jwt.sign(payload, "ABC");
         res.status(200).json({ token });
-        // res.status(200).json(`Hello admain! ${user.name}`);
       } else {
         res.status(403).json("wrong PassWord!");
       }
