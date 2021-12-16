@@ -1,12 +1,12 @@
 const express = require("express")
 const userRoute = express.Router();
 
-const {authorization} = require("../middleware/authorization")
-const {getUserInfo , updateInfo} = require("../controler/user")
+const {authentication} = require("../middleware/authorization")
+const {getUserInfo , updateUserName} = require("../controler/user")
 
 
 
-userRoute.get("/user"  , getUserInfo)
-// userRoute.put("/user"  , updateInfo)
+userRoute.get("/user"  , authentication ,getUserInfo)
+userRoute.put("/user"  , authentication, updateUserName)
 
 module.exports = userRoute;

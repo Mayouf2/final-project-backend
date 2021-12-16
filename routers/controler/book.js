@@ -59,7 +59,7 @@ try {
       });
   };
   const deleteComment = (req, res) => {
-    if(req.params.id == req.params.id || req.body.admin == true){
+    // if(req.params.id == req.params.id || req.body.admin == true){
     const { comment } = req.body;
     const id = req.params.id;
     const user = req.token.userId;
@@ -75,7 +75,7 @@ try {
         res.send(err)
       });
   };
-}
+// }
 
   
   

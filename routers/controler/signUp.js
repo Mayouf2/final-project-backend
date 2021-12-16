@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const userModel  = require("../../db/models/userModel")
+const userModel  = require("../../DB/models/userModel")
 
 const addUser = async(req, res) => {
   let { name, email, password } = req.body;
