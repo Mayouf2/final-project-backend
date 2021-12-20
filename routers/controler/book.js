@@ -83,20 +83,7 @@ try {
   
 
   ////////////////////////////////////////
-// const giveLike  = async (req, res) => {
-//   const id = req.params.id;
-//   const user = req.token.userId;
-//   try {
-//     const newLike = await bookModel.findOneAndUpdate(
-//       { _id: user },
-//       { $push: { Like: id } },
-//       { new: true }
-//     )
-//     res.status(201).json(newLike);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// }
+
 
 // app.get("/like", (req, res) => {
 //   res.status(200);

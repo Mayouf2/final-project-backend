@@ -2,7 +2,7 @@ const userModel  = require("../../DB/models/userModel")
 
 const getUserInfo = async (req ,res)=>{
     const userId = req.token.userId
-    const id = req.params.id;
+    // const id = req.params.id;
     try {
         const profile = await userModel.findOne({_id:userId})
         res.status(200).json(profile);
@@ -14,18 +14,136 @@ const updateUserName = async (req, res) => {
     const { newName  , newEmail , newImg , newBio} = req.body;
     try {
       const userId = req.token.userId;
+      const id = req.params.id
       const response = await userModel.findOneAndUpdate(
         { _id: userId },
-        { name: newName },
-        {email:newEmail},
-        {img:newImg},
-        {bio:newBio},
+        { name : newName},
+        // {email : newEmail},
+        // {img : newImg},
+        // {bio : newBio},
         { new: true }
       );
       res.status(200).json(response);
     } catch (error) {
-      res.send("error in token");
+      res.send(error);
+    }
+  };
+  const updateUserEmail = async (req, res) => {
+    const { newName  , newEmail , newImg , newBio} = req.body;
+    try {
+      const userId = req.token.userId;
+      const id = req.params.id
+      const response = await userModel.findOneAndUpdate(
+        { _id: userId },
+        // { name : newName},
+        {email : newEmail},
+        // {img : newImg},
+        // {bio : newBio},
+        { new: true }
+      );
+      res.status(200).json(response);
+    } catch (error) {
+      res.send(error);
     }
   };
 
-module.exports = {getUserInfo , updateUserName}
+  const updateUserImage = async (req, res) => {
+    const { newName  , newEmail , newImg , newBio} = req.body;
+    try {
+      const userId = req.token.userId;
+      const id = req.params.id
+      const response = await userModel.findOneAndUpdate(
+        { _id: userId },
+        // { name : newName},
+        // {email : newEmail},
+        {img : newImg},
+        // {bio : newBio},
+        { new: true }
+      );
+      res.status(200).json(response);
+    } catch (error) {
+      res.send(error);
+    }
+  };
+
+
+  const updateUserBio = async (req, res) => {
+    const { newName  , newEmail , newImg , newBio} = req.body;
+    try {
+      const userId = req.token.userId;
+      const id = req.params.id
+      const response = await userModel.findOneAndUpdate(
+        { _id: userId },
+        // { name : newName},
+        // {email : newEmail},
+        // {img : newImg},
+        {bio : newBio},
+        { new: true }
+      );
+      res.status(200).json(response);
+    } catch (error) {
+      res.send(error);
+    }
+  };
+
+  
+
+
+  const deleteUser = async(req , res)=>{
+    const userId = req.token.userId;
+    const id = req.params.id
+    try {
+      const del = await userModel.findOneAndDelete({_id:userId})
+      res.status(200).json([del , "delete"]);
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+
+  //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
+  const giveLike  = async (req, res) => {
+    const id = req.params.id;
+    const user = req.token.userId;
+    try {
+      const like = await userModel.findOneAndUpdate(
+        { _id: user },
+        { $push: { Like: id } },
+        { new: true }
+      )
+      res.status(201).json(like);
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  const DeleteLike = async (req, res) => {
+    const id = req.params.id;
+    const user = req.token.userId;
+    try {
+      const newLike = await userModel.findOneAndUpdate(
+        { _id: user },
+        { $pull: { Like: id } },
+        { new: true }
+      );
+      res.status(201).json(newLike);
+    } catch (error) {
+      res.send("error");
+    }
+  }; 
+
+  const showLike = async (req, res)=>{
+const user = req.token.userId
+try{
+const getlike= await userModel.find({_id:user}).populate("Like")
+res.status(200).json(getlike.Like)
+}catch(err){
+res.send(err)
+}
+      
+  }
+  ////////////////////////////////////////
+
+module.exports = {getUserInfo , updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio,
+  giveLike , showLike , DeleteLike}
