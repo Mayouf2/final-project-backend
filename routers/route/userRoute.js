@@ -2,7 +2,7 @@ const express = require("express")
 const userRoute = express.Router();
 
 const {authentication} = require("../middleware/authorization")
-const {getUserInfo , updateUserName , deleteUser , giveLike , showLike ,updateUserEmail , updateUserImage , updateUserBio} = require("../controler/user")
+const {getUserInfo , updateUserName , deleteUser , giveLike ,DeleteLike , showLike ,updateUserEmail , updateUserImage , updateUserBio} = require("../controler/user")
 
 
 
@@ -15,5 +15,8 @@ userRoute.delete("/user/:id", authentication , deleteUser)
 
 
 userRoute.post("/like/:id" , authentication , giveLike)
-userRoute.get("/like/:id" , authentication , showLike)
+userRoute.get("/like" , authentication , showLike)
+userRoute.delete("/like/:id" , authentication , DeleteLike)
+
+
 module.exports = userRoute;

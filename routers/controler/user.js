@@ -1,4 +1,6 @@
 const userModel  = require("../../DB/models/userModel")
+// const bookModel  = require("../../DB/models/bookModel")
+
 
 const getUserInfo = async (req ,res)=>{
     const userId = req.token.userId
@@ -14,7 +16,7 @@ const updateUserName = async (req, res) => {
     const { newName  , newEmail , newImg , newBio} = req.body;
     try {
       const userId = req.token.userId;
-      const id = req.params.id
+      // const id = req.params.id
       const response = await userModel.findOneAndUpdate(
         { _id: userId },
         { name : newName},
@@ -32,7 +34,7 @@ const updateUserName = async (req, res) => {
     const { newName  , newEmail , newImg , newBio} = req.body;
     try {
       const userId = req.token.userId;
-      const id = req.params.id
+      // const id = req.params.id
       const response = await userModel.findOneAndUpdate(
         { _id: userId },
         // { name : newName},
@@ -51,7 +53,7 @@ const updateUserName = async (req, res) => {
     const { newName  , newEmail , newImg , newBio} = req.body;
     try {
       const userId = req.token.userId;
-      const id = req.params.id
+      // const id = req.params.id
       const response = await userModel.findOneAndUpdate(
         { _id: userId },
         // { name : newName},
@@ -71,7 +73,7 @@ const updateUserName = async (req, res) => {
     const { newName  , newEmail , newImg , newBio} = req.body;
     try {
       const userId = req.token.userId;
-      const id = req.params.id
+      // const id = req.params.id
       const response = await userModel.findOneAndUpdate(
         { _id: userId },
         // { name : newName},
@@ -91,7 +93,7 @@ const updateUserName = async (req, res) => {
 
   const deleteUser = async(req , res)=>{
     const userId = req.token.userId;
-    const id = req.params.id
+    // const id = req.params.id
     try {
       const del = await userModel.findOneAndDelete({_id:userId})
       res.status(200).json([del , "delete"]);
@@ -107,6 +109,7 @@ const updateUserName = async (req, res) => {
     const id = req.params.id;
     const user = req.token.userId;
     try {
+      
       const like = await userModel.findOneAndUpdate(
         { _id: user },
         { $push: { Like: id } },
@@ -127,7 +130,7 @@ const updateUserName = async (req, res) => {
         { $pull: { Like: id } },
         { new: true }
       );
-      res.status(201).json(newLike);
+      res.status(200).json(newLike);
     } catch (error) {
       res.send("error");
     }
@@ -136,13 +139,12 @@ const updateUserName = async (req, res) => {
   const showLike = async (req, res)=>{
 const user = req.token.userId
 try{
-const getlike= await userModel.find({_id:user}).populate("Like")
+const getlike= await userModel.findOne({_id:user}).populate("Like")
 res.status(200).json(getlike.Like)
 }catch(err){
 res.send(err)
 }
-      
-  }
+}
   ////////////////////////////////////////
 
 module.exports = {getUserInfo , updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio,
