@@ -1,4 +1,6 @@
 const bookModel = require("../../DB/models/bookModel")
+const userModel = require("../../DB/models/userModel")
+
 
 
 
@@ -29,6 +31,7 @@ try {
 }
 
   const addBook = async (req, res) => {
+    
     const { name ,auther, img ,description, price , like} = req.body;
     res.send({ name , img , price , like})
     const newBook = new bookModel({ name ,auther, img ,description, price ,like});
@@ -40,6 +43,7 @@ try {
       res.send( error , "err");
     }
   }
+
   /////////////////////////////////////
   const addComment = (req, res) => {
     const { comment } = req.body;

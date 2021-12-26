@@ -1,12 +1,17 @@
 const jwt = require("jsonwebtoken");
+const userModel = require("../../DB/models/userModel")
 
 
 const admin = (req, res, next) => {
     try {
-      const token = req.headers.authorization.split(" ")[1];
-      const valid = jwt.verify(token, "ABC");
-      req.token = valid;
-      next();
+      const userRole = userModel.find({_id:user})
+
+      if(userRole === true){
+        next();
+      } else {
+        res.status(403).json("not allowed")
+      }
+      
     } catch (error) {
       res.status(403);
       res.send(error);
