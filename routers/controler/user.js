@@ -105,47 +105,46 @@ const updateUserName = async (req, res) => {
 
   //////////////////////////////////////////////////
   //////////////////////////////////////////////////
-  const giveLike  = async (req, res) => {
-    const id = req.params.id;
-    const user = req.token.userId;
-    try {
+//   const giveLike  = async (req, res) => {
+//     const id = req.params.id;
+//     const user = req.token.userId;
+//     try {
       
-      const like = await userModel.findOneAndUpdate(
-        { _id: user },
-        { $push: { Like: id } },
-        { new: true }
-      )
-      res.status(201).json(like);
-    } catch (error) {
-      res.send(error);
-    }
-  }
+//       const like = await userModel.findOneAndUpdate(
+//         { _id: user },
+//         { $push: { Like: id } },
+//         { new: true }
+//       )
+//       res.status(201).json(like);
+//     } catch (error) {
+//       res.send(error);
+//     }
+//   }
 
-  const DeleteLike = async (req, res) => {
-    const id = req.params.id;
-    const user = req.token.userId;
-    try {
-      const newLike = await userModel.findOneAndUpdate(
-        { _id: user },
-        { $pull: { Like: id } },
-        { new: true }
-      );
-      res.status(200).json(newLike);
-    } catch (error) {
-      res.send("error");
-    }
-  }; 
+//   const DeleteLike = async (req, res) => {
+//     const id = req.params.id;
+//     const user = req.token.userId;
+//     try {
+//       const newLike = await userModel.findOneAndUpdate(
+//         { _id: user },
+//         { $pull: { Like: id } },
+//         { new: true }
+//       );
+//       res.status(200).json(newLike);
+//     } catch (error) {
+//       res.send("error");
+//     }
+//   }; 
 
-  const showLike = async (req, res)=>{
-const user = req.token.userId
-try{
-const getlike= await userModel.findOne({_id:user}).populate("Like")
-res.status(200).json(getlike.Like)
-}catch(err){
-res.send(err)
-}
-}
+//   const showLike = async (req, res)=>{
+// const user = req.token.userId
+// try{
+// const getlike= await userModel.findOne({_id:user}).populate("Like")
+// res.status(200).json(getlike.Like)
+// }catch(err){
+// res.send(err)
+// }
+// }
   ////////////////////////////////////////
 
-module.exports = {getUserInfo , updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio,
-  giveLike , showLike , DeleteLike}
+module.exports = {getUserInfo , updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio}

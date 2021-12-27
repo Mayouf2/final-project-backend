@@ -3,6 +3,7 @@ const userModel = require("../../DB/models/userModel")
 
 
 const admin = (req, res, next) => {
+  const user = req.token.userId
     try {
       const userRole = userModel.find({_id:user})
 

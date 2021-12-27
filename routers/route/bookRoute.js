@@ -3,7 +3,7 @@ const bookRoute = express.Router();
 const {authentication} = require("../middleware/authorization")
 const {admin} = require("../middleware/admin")
 
-const {bookInfo , addBook ,oneBook ,giveLike , delLike , addComment , deleteComment } = require("../controler/book")
+const {bookInfo , addBook ,oneBook , addComment , deleteComment } = require("../controler/book")
 
 
 bookRoute.get("/books"  , bookInfo)
