@@ -40,3 +40,4 @@ const getFav = async(req,res)=>{
     }
   }
 module.exports = {addFav,getFav,deleteFav}
+

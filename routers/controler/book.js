@@ -32,9 +32,9 @@ try {
 
   const addBook = async (req, res) => {
     
-    const { name ,auther, img ,description, price , like} = req.body;
+    const { name ,auther, img ,description, price , like , rating} = req.body;
     res.send({ name , img , price , like})
-    const newBook = new bookModel({ name ,auther, img ,description, price ,like});
+    const newBook = new bookModel({ name ,auther, img ,description, price ,like , rating});
   
     try {
       const response = await newBook.save();
@@ -51,7 +51,7 @@ try {
     const user = req.token.userId;
     const userName=req.token.userName
     bookModel
-      .findOneAndUpdate({ _id: id }, { $push: { comment: {comment, userName} } },{
+      .findOneAndUpdate({ _id: id }, { $push: { comment: {comment, userName } } },{
         new: true
       })
       .populate("user")
@@ -69,7 +69,7 @@ try {
     const user = req.token.userId;
     const userName=req.token.userName
     bookModel
-      .findOneAndUpdate({ _id: id }, { $pull: { comment: {comment, userName} } },{
+      .findOneAndUpdate({ _id: id }, { $pull: { comment: {comment, userName  } } },{
         new: true
       })
       .populate("user")
@@ -99,5 +99,18 @@ try {
 
 //////////////////////////////////////////////////
 
+const rating = async(req, res) => {
+  const id = req.params.id
+  const rating = req.body.rating
+  bookModel
+    .find({rating})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+}
+
 /////////////////////////////////////////////////
-  module.exports = { bookInfo , addBook ,oneBook   , addComment , deleteComment }
+  module.exports = { bookInfo , addBook ,oneBook   , addComment , deleteComment , rating}
