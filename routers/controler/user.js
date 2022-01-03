@@ -2,6 +2,17 @@ const userModel  = require("../../DB/models/userModel")
 // const bookModel  = require("../../DB/models/bookModel")
 
 
+const getUsers = async (req ,res)=>{
+  const userId = req.token.userId
+  // const id = req.params.id;
+  try {
+      const profile = await userModel.find({})
+      res.status(200).json(profile);
+  } catch (error) {
+      res.send(error)
+  }
+}
+
 const getUserInfo = async (req ,res)=>{
     const userId = req.token.userId
     // const id = req.params.id;
@@ -147,4 +158,4 @@ const updateUserName = async (req, res) => {
 // }
   ////////////////////////////////////////
 
-module.exports = {getUserInfo , updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio}
+module.exports = {getUserInfo ,getUsers, updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio}

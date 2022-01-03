@@ -32,18 +32,27 @@ try {
 
   const addBook = async (req, res) => {
     
-    const { name ,auther, img ,description, price , like , rating} = req.body;
-    res.send({ name , img , price , like})
+    let { name ,auther, img ,description, price , like , rating} = req.body;
+    // res.send({ name , img , price , like})
+    const userId = req.token.userId;
+    const isAdmin = await userModel.findOne({ _id: userId });
+    if (isAdmin.admin == true) {
     const newBook = new bookModel({ name ,auther, img ,description, price ,like , rating});
   
     try {
+      if(newBook){
       const response = await newBook.save();
+      // const res = await bookModel.find({});
       res.status(201).json(response);
-    } catch (error) {
-      res.send( error , "err");
+    } else{
+      console.log("can't");
+      res.send("can't post");
+    } 
+  }catch (error) {
+      res.send(error);
     }
   }
-
+  }
   /////////////////////////////////////
   const addComment = (req, res) => {
     const { comment } = req.body;
@@ -51,7 +60,7 @@ try {
     const user = req.token.userId;
     const userName=req.token.userName
     bookModel
-      .findOneAndUpdate({ _id: id }, { $push: { comment: {comment, userName } } },{
+      .findOneAndUpdate({ _id: id }, { $push: { comment: {comment, userName , rating } } },{
         new: true
       })
       .populate("user")

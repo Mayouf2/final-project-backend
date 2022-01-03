@@ -8,8 +8,9 @@ const addFav =async(req,res)=>{
     const id = req.params.id;
     const user = req.token.userId;
     try {
-      const newLike = await favModel.findOneAndUpdate({ user:user }, { $push: { like: id } },{new:true}).populate("user")
-      res.status(201).json(newLike);
+      const newLike = await favModel.findOneAndUpdate({ user:user }, { $push: { like: id } },{new:true})
+      const like = await favModel.findOne({user}).populate("like")
+      res.status(201).json(like.like);
     } catch (error) {
       res.send(error);
     }
@@ -21,8 +22,9 @@ const deleteFav= async(req,res)=>{
   const id = req.params.id;
   const user = req.token.userId;
   try {
-    const deleteLike = await favModel.findOneAndUpdate({ user: user }, { $pull: { like: id } },{new:true}).populate("user")
-    res.status(200).json(deleteLike);
+    const deleteLike = await favModel.findOneAndUpdate({ user: user }, { $pull: { like: id } },{new:true})
+    const like = await favModel.findOne({user}).populate("like")
+    res.status(200).json(like.like);
   } catch (error) {
     res.send(error);
   }

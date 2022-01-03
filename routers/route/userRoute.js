@@ -2,11 +2,13 @@ const express = require("express")
 const userRoute = express.Router();
 
 const {authentication} = require("../middleware/authorization")
-const {getUserInfo , updateUserName , deleteUser ,updateUserEmail , updateUserImage , updateUserBio} = require("../controler/user")
+const {getUserInfo ,getUsers, updateUserName , deleteUser ,updateUserEmail , updateUserImage , updateUserBio} = require("../controler/user")
 
 
 
 userRoute.get("/user"  , authentication ,getUserInfo)
+userRoute.get("/getUsers"  , authentication ,getUsers)
+
 userRoute.put("/username"  , authentication, updateUserName)
 userRoute.put("/useremail"  , authentication, updateUserEmail)
 userRoute.put("/userimage"  , authentication, updateUserImage)

@@ -13,6 +13,8 @@ const userRoute = require("./routers/route/userRoute")
 const bookRoute = require("./routers/route/bookRoute")
 const replaysRoute =require("./routers/route/replaysRoute")
 const FavRoute = require("./routers/route/FavRoute")
+const postsRoute = require("./routers/route/postsRoute")
+
 const {authorization} =require ("./routers/middleware/authorization")
 
 
@@ -22,6 +24,8 @@ app.use(signUpRoute);
 app.use(loginRoute);
 // app.use(replaysRoute);
 app.use(FavRoute);
+app.use(postsRoute);
+
 ////////////////////////////////////////////
 
 

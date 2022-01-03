@@ -7,7 +7,7 @@ const {bookInfo , addBook ,oneBook , addComment , deleteComment , rating} = requ
 
 
 bookRoute.get("/books"  , bookInfo)
-bookRoute.post("/addbook"  , addBook)
+bookRoute.post("/addbook"  ,authentication, addBook)
 // bookRoute.post("/like/:id" ,giveLike)
 // bookRoute.delete("/like/:id",delLike) 
 bookRoute.get("/book/:id" , oneBook)
