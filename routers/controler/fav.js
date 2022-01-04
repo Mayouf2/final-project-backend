@@ -9,8 +9,10 @@ const addFav =async(req,res)=>{
     const user = req.token.userId;
     try {
       const newLike = await favModel.findOneAndUpdate({ user:user }, { $push: { like: id } },{new:true})
+
       const like = await favModel.findOne({user}).populate("like")
       res.status(201).json(like.like);
+      
     } catch (error) {
       res.send(error);
     }

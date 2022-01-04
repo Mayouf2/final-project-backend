@@ -24,7 +24,7 @@ const getPost = async  (req, res) => {
     const newPost = new postsModel({bookTitle ,auther , desc , img , likes ,rating , user , userName ,url ,time})
     try {
       const response = await newPost.save()
-      const res = await postsModel.find({});
+      // const res = await postsModel.find({});
       res.status(201).json(response);
     } catch (error) {
       res.send( error);
