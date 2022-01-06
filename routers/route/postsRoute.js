@@ -1,6 +1,6 @@
 const express = require("express");
 const postsRoute = express.Router();
-const {addPost , getPost , deletePost , givePostLike , givePostDissLike ,getLikes} =require("../controler/posts");
+const {addPost , getPost , deletePost } =require("../controler/posts");
 const { authentication } = require("../middleware/authorization");
 
 

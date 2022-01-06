@@ -49,45 +49,44 @@ const getPost = async  (req, res) => {
 /////////////////////////////////////////////////////
 
 
-const givePostLike =async(req,res)=>{
-  const id = req.params.id;
-  const user = req.token.userId;
-  try {
-    const newLike = await postsModel.findOneAndUpdate({ user:user }, { $push: { like: id } },{new:true})
-    const like = await postsModel.findOne({user}).populate("likes")
-    res.status(201).json(like.like);
-  } catch (error) {
-    res.send(error);
-  }
-}
+// const givePostLike =async(req,res)=>{
+//   const id = req.params.id;
+//   const user = req.token.userId;
+//   try {
+//     const newLike = await postsModel.findOneAndUpdate({ user:user }, { $push: { like: id } },{new:true})
+//     const like = await postsModel.findOne({user}).populate("likes")
+//     res.status(201).json(like.like);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// }
 
-///////////////////////////////
-//////////////////////////////
-const givePostDissLike = async(req,res)=>{
-const id = req.params.id;
-const user = req.token.userId;
-try {
-  const deleteLike = await postsModel.findOneAndUpdate({ user: user }, { $pull: { like: id } },{new:true})
-  const like = await postsModel.findOne({user}).populate("likes")
-  res.status(200).json(like.like);
-} catch (error) {
-  res.send(error);
-}
-}
-///////////////////////////////
-//////////////////////////////
+// ///////////////////////////////
+// //////////////////////////////
+// const givePostDissLike = async(req,res)=>{
+// const id = req.params.id;
+// const user = req.token.userId;
+// try {
+//   const deleteLike = await postsModel.findOneAndUpdate({ user: user }, { $pull: { like: id } },{new:true})
+//   const like = await postsModel.findOne({user}).populate("likes")
+//   res.status(200).json(like.like);
+// } catch (error) {
+//   res.send(error);
+// }
+// }
+// ///////////////////////////////
+// //////////////////////////////
 
-const getLikes = async(req,res)=>{
-  const user = req.token.userId;
-  try {
-    const getlike = await postsModel.findOne({user}).populate("likes")
-    res.status(200).json(getlike.like);
-  } catch (error) {
-    res.send(error);
-  }
-}
+// const getLikes = async(req,res)=>{
+//   const user = req.token.userId;
+//   try {
+//     const getlike = await postsModel.findOne({user}).populate("likes")
+//     res.status(200).json(getlike.like);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// }
 
   
   module.exports = {addPost , getPost , deletePost,
-    givePostLike , givePostDissLike ,getLikes
   }

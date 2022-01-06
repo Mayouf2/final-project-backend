@@ -9,7 +9,8 @@ const book = new mongoose.Schema({
     description:{type:String}, 
     price:{type:String},
     comment:{type:Array },
-    rating: { type: Number , default: 0}
+    rating: { type: Number , default: 0},
+    url:{type:String}
   
 });
 

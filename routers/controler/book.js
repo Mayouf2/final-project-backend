@@ -17,6 +17,18 @@ const bookInfo = async  (req, res) => {
     });
 }
 
+const getbook = async  (req, res) => {
+  const id = req.params.id
+  bookModel
+    .find({})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+}
+
 const oneBook = async (req, res) => {
   let id = req.params.id
  
@@ -32,12 +44,12 @@ try {
 
   const addBook = async (req, res) => {
     
-    let { name ,auther, img ,description, price , like , rating} = req.body;
+    let { name ,auther, img ,description, price , like , rating , url} = req.body;
     // res.send({ name , img , price , like})
     const userId = req.token.userId;
     const isAdmin = await userModel.findOne({ _id: userId });
     if (isAdmin.admin == true) {
-    const newBook = new bookModel({ name ,auther, img ,description, price ,like , rating});
+    const newBook = new bookModel({ name ,auther, img ,description, price ,like , rating ,url});
   
     try {
       if(newBook){
@@ -122,4 +134,4 @@ const rating = async(req, res) => {
 }
 
 /////////////////////////////////////////////////
-  module.exports = { bookInfo , addBook ,oneBook   , addComment , deleteComment , rating}
+  module.exports = {getbook, bookInfo , addBook ,oneBook   , addComment , deleteComment , rating}
