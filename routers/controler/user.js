@@ -13,22 +13,36 @@ const getUsers = async (req ,res)=>{
   }
 }
 
+const getOneUser = async (req ,res)=>{
+  const userId = req.token.userId
+  const id = req.params.id;
+  try {
+      const profile = await userModel.find({_id:id})
+      res.status(200).json(profile);
+  } catch (error) {
+      res.send(error)
+  }
+}
+
 const AdminDeleteUser = async(req , res)=>{
   const userId = req.token.userId;
   // const id = req.params.id
-  const isAdmin = await userModel.findOne({ _id: userId });
-  if(isAdmin.admin == true){
-    const del = await userModel.findOneAndDelete({_id:userId})
+  
     try {
+      const user = await userModel.findOne({ _id: userId });
+  if(user.admin == true){
+    const del = await userModel.findOneAndDelete({_id:userId})
+
       if(del){
         res.status(200).json([del , "delete"]);
     } else {
       console.log("can't delete");
     res.send("can't")
 }
-}catch (error) {
-    res.send(error)
-  }
+} 
+}
+catch (error) {
+  res.send(error)
 }
 }
 
@@ -179,4 +193,4 @@ const updateUserName = async (req, res) => {
 // }
   ////////////////////////////////////////
 
-module.exports = {getUserInfo ,getUsers,AdminDeleteUser, updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio}
+module.exports = {getUserInfo ,getOneUser,getUsers,AdminDeleteUser, updateUserName , deleteUser ,updateUserEmail,updateUserImage,updateUserBio}

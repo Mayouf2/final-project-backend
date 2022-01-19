@@ -65,6 +65,38 @@ try {
     }
   }
   }
+
+
+  /////////////////////////////////////
+
+  const deleteBook = async (req , res )=>{
+    const id = req.params.id
+    const userId = req.token.userId
+
+   
+      try {
+        const isAdmin = await userModel.findOne({ _id: userId });
+        if (isAdmin.admin == true) {
+          const dele = await bookModel.findByIdAndDelete({_id:id })
+        if(dele){
+          res.send("removed")
+        } else  { 
+          const dele = await bookModel.findByIdAndDelete({_id:id , userId:userId})
+          if(dele){
+            res.send("removed")
+          }
+          else{
+            res.send("can't removed");
+          }
+
+        }
+      }
+      } catch (error) {
+        res.send(error)
+      }
+    }
+  
+
   /////////////////////////////////////
   const addComment = (req, res) => {
     const { comment } = req.body;
@@ -134,4 +166,4 @@ const rating = async(req, res) => {
 }
 
 /////////////////////////////////////////////////
-  module.exports = {getbook, bookInfo , addBook ,oneBook   , addComment , deleteComment , rating}
+  module.exports = {getbook, bookInfo , addBook ,oneBook ,deleteBook  , addComment , deleteComment , rating}
