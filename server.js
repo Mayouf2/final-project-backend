@@ -37,10 +37,11 @@ app.use(chatRoute);
 
 
 const { Server } = require("socket.io");
-const Port = 5000;
+// const Port = 5000;
 
 
-const server = app.listen(Port, () => {
+//  console.log(process.env.PORT);
+const server = app.listen(process.env.PORT, () => {
   console.log("SERVER IS RUN!");
 });
 
